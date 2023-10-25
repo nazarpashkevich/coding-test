@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PhaseController;
+use App\Http\Controllers\TaskController;
+use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function (Registrar $route) {
+    $route->get('/user', fn(Request $request) => $request->user());
+
+    $route->group(['controller' => TaskController::class], function (Registrar $route) {
+        $route->group(['prefix' => 'tasks'], function (Registrar $route) {
+            $route->get('', 'index');
+            $route->post('', 'store');
+            $route->delete('{task}', 'destroy');
+            $route->put('{task}', 'update');
+        });
+
+        $route->get('/users', 'users');
+    });
+
+    $route->group(['prefix' => 'phases'], function (Registrar $route) {
+        $route->get('{phase}', [TaskController::class, 'show']);
+    });
 });
-Route::middleware('auth:sanctum')->get('/tasks', [App\Http\Controllers\TaskController::class, 'index']);
-Route::middleware('auth:sanctum')->post('/tasks', [App\Http\Controllers\TaskController::class, 'store']);
-Route::middleware('auth:sanctum')->delete('/tasks/{task}', [App\Http\Controllers\TaskController::class, 'destroy']);
-Route::middleware('auth:sanctum')->get('/users', [App\Http\Controllers\TaskController::class, 'users']);
-Route::middleware('auth:sanctum')->get('/phases/{phase}', [App\Http\Controllers\PhaseController::class, 'show']);
+
+

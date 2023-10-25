@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Phase;
 use App\Models\Task;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class TaskController extends Controller
 {
@@ -17,9 +20,12 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Collection
     {
-        return \App\Models\Phase::with('tasks.user')->get();
+        $items = \App\Models\Phase::with('tasks.user')->get();
+        $items->each(fn(Phase $phase) => $phase->setAttribute('tasks_count', $phase->tasks->count()));
+
+        return $items;
     }
 
     /**
@@ -66,9 +72,12 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task): Response
     {
-        //
+        $task->fill($request->validated());
+        $task->save();
+
+        return response('');
     }
 
     /**

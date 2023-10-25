@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 import Alpine from 'alpinejs';
 import TaskCard from './components/TaskCard.vue';
 import TaskColumn from './components/TaskColumn.vue';
+import TaskForm from './components/task/TaskForm.vue';
 import KanbanBoard from './components/KanbanBoard.vue';
 import GenericModal from './components/modals/GenericModal.vue';
 
@@ -14,6 +15,7 @@ app.use(pinia);
 
 app.component('TaskCard', TaskCard);
 app.component('TaskColumn', TaskColumn);
+app.component('TaskForm', TaskForm);
 app.component('KanbanBoard', KanbanBoard);
 app.component('GenericModal', GenericModal);
 

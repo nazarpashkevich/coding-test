@@ -2,10 +2,12 @@
 <div class="w-[300px] bg-sky-950 rounded-lg shadow-lg">
     <div class="p-4">
         <div class="flex items-center justify-between">
-            <h2 class="text-lg text-zinc-100 font-black mb-3">{{ kanban.phases[props.phase_id].name }}</h2>
-            <PlusIcon 
-                @click="createTask()" 
-                class="mb-3 h-6 w-6 text-white hover:cursor-pointer" 
+            <h2 class="text-lg text-zinc-100 font-black mb-3">
+                {{ kanban.phases[props.phase_id].name }} ({{ tasks_count }})
+            </h2>
+            <PlusIcon
+                @click="createTask()"
+                class="mb-3 h-6 w-6 text-white hover:cursor-pointer"
                 aria-hidden="true" />
         </div>
         <task-card v-if="kanban.phases[props.phase_id].tasks.length > 0" v-for="task in kanban.phases[props.phase_id].tasks" :task="task" />
@@ -33,11 +35,15 @@ const props = defineProps({
         type: Number,
         required: true
     },
+    tasks_count: {
+        type: Number,
+        required: true
+    },
 })
 
 const createTask = function () {
-    kanban.creatingTask = true;
-    kanban.creatingTaskProps.phase_id = props.phase_id;
+    kanban.showTaskForm = true;
+    kanban.taskProps.phase_id = props.phase_id;
 }
 
 </script>
