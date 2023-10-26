@@ -6,11 +6,16 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Phase;
 use App\Models\Task;
+use App\Services\TaskService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
 class TaskController extends Controller
 {
+
+    public function __construct(protected TaskService $service)
+    {
+    }
 
     public function kanban()
     {
@@ -74,8 +79,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task): Response
     {
-        $task->fill($request->validated());
-        $task->save();
+        $this->service->update($task, $request->validated());
 
         return response('');
     }

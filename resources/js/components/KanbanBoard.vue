@@ -14,6 +14,8 @@
                     <task-column v-for="col in kanban.phases"
                                  :phase_id="col.id"
                                  :tasks_count="col.tasks_count"
+                                 :is_completable="!!col.is_completable"
+                                 @updated="refreshTasks"
                     >
                     </task-column>
                 </div>
@@ -32,8 +34,9 @@
                     <div class="mt-3 sm:mt-5">
                         <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">{{ kanban.selectedTask.name }}</DialogTitle>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500">In column {{ kanban.phases[kanban.selectedTask.phase_id].name
-                            }}</p>
+                            <p class="text-sm text-gray-500">
+                                In column {{ kanban.phases[kanban.selectedTask.phase_id].name }}
+                            </p>
                             <p class="text-sm text-gray-500">Assigned to {{ kanban.selectedTask.user.name }}</p>
                         </div>
                     </div>

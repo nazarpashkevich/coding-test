@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SetPhaseCompletableRequest;
 use App\Http\Requests\StorePhaseRequest;
 use App\Http\Requests\UpdatePhaseRequest;
 use App\Models\Phase;
+use App\Services\PhaseService;
+use Illuminate\Http\JsonResponse;
 
 class PhaseController extends Controller
 {
+    public function __construct(protected PhaseService $service)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -62,5 +69,13 @@ class PhaseController extends Controller
     public function destroy(Phase $phase)
     {
         //
+    }
+
+
+    public function setCompletable(Phase $phase, SetPhaseCompletableRequest $request): JsonResponse
+    {
+        $this->service->setCompletable($phase, $request->isCompletable());
+
+        return new JsonResponse(['status' => 'success']);
     }
 }

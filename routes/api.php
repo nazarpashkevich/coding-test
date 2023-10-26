@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function (Registrar $route) {
 
     $route->group(['prefix' => 'phases'], function (Registrar $route) {
         $route->get('{phase}', [TaskController::class, 'show']);
+        $route->put('{phase}/set-completable', [PhaseController::class, 'setCompletable']);
     });
 });
 
