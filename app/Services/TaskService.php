@@ -12,7 +12,7 @@ class TaskService
 
         $task->load('phase');
 
-        if ($task->phase->is_completable && !$task->completed_at) {
+        if ($task->isDirty('phase_id') && $task->phase->is_completable && !$task->completed_at) {
             $task->completed_at = now();
         }
 
