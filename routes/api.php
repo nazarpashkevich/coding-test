@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PhaseController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Http\Request;
@@ -35,6 +36,12 @@ Route::group(['middleware' => ['auth:sanctum']], function (Registrar $route) {
         $route->get('{phase}', [TaskController::class, 'show']);
         $route->delete('{phase}', 'destroy');
         $route->put('{phase}/set-completable', 'setCompletable');
+    });
+
+    $route->group(['prefix' => 'statistics', 'controller' => StatisticsController::class], function (Registrar $route) {
+        $route->get('users-tasks', 'usersWithCountTasks');
+        $route->get('week-completed-tasks-count', 'weekCompletedTasksCount');
+        $route->get('month-completed-tasks-count', 'monthCompletedTasksCount');
     });
 });
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full bg-white text-gray-900 shadow-md rounded-lg p-3 pb-8 mb-4 relative"
-         :class="!!(task.completed_at) ? 'bg-green-100' : ''"
+    <div class="w-full text-gray-900 shadow-md rounded-lg p-3 pb-8 mb-4 relative"
+         :class="!!(task.completed_at) ? 'bg-green-100' : 'bg-white'"
         @mouseenter="kanban.hoveredName = task.name"
         @mouseleave="kanban.unhoverTask()"
         @click="kanban.selectTask(task)">
