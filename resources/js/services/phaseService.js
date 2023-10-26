@@ -4,4 +4,6 @@ const setPhaseCompletable = (id, isCompletable) => axios.put(
     {is_completable: isCompletable}
 )
 
-export { setPhaseCompletable }
+const deletePhase = (id) => axios.delete(`/api/phases/${id}`)
+
+export { setPhaseCompletable, deletePhase }

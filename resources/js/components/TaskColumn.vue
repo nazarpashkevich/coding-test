@@ -25,10 +25,19 @@
         />
 
         <!-- A card to create a new task -->
-        <div class="w-full flex items-center justify-between bg-white text-gray-900 hover:cursor-pointer shadow-md rounded-lg p-3 relative"
+        <div class="w-full flex items-center justify-between bg-white text-gray-900 hover:cursor-pointer shadow-md
+         rounded-lg p-3 relative mb-4"
             @click="createTask()">
             <span>Create a new task</span>
             <PlusIcon class="h-6 w-6" aria-hidden="true" />
+        </div>
+
+        <!-- A card to create a new task -->
+        <div class="w-full flex items-center justify-between bg-white text-red-900 hover:cursor-pointer shadow-md
+         rounded-lg p-3 relative border border-red-900 hover:bg-red-50"
+            @click="deletePhaseAction">
+            <span>Delete this phase!</span>
+            <TrashIcon class="h-6 w-6" aria-hidden="true" />
         </div>
 
     </div>
@@ -38,8 +47,8 @@
 <script setup>
 // get the props
 import { useKanbanStore } from '../stores/kanban'
-import { PlusIcon } from '@heroicons/vue/20/solid'
-import { setPhaseCompletable } from "../services/phaseService.js";
+import { PlusIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { deletePhase, setPhaseCompletable } from "../services/phaseService.js";
 import { ref } from 'vue'
 const kanban = useKanbanStore()
 
@@ -69,6 +78,12 @@ const completable = ref(props.is_completable)
 
 const markCompletable = () => {
     setPhaseCompletable(props.phase_id, completable.value)
+
+    emit('updated')
+}
+
+const deletePhaseAction = () => {
+    deletePhase(props.phase_id)
 
     emit('updated')
 }

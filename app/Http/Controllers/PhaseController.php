@@ -66,9 +66,11 @@ class PhaseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Phase $phase)
+    public function destroy(Phase $phase): JsonResponse
     {
-        //
+        $this->service->delete($phase);
+
+        return new JsonResponse(['status' => 'success']);
     }
 
 
