@@ -203,4 +203,21 @@ onUnmounted(() => {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
-}</style>
+}
+
+.custom-scroll-bar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: rgb(147 146 146 / 40%);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-track {
+    border: solid 3px transparent;
+}
+</style>

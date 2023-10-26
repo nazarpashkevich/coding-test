@@ -1,5 +1,5 @@
 <template>
-<div class="w-[300px] bg-sky-950 rounded-lg shadow-lg overflow-y-scroll scrollbar-hide">
+<div class="w-[300px] bg-sky-950 rounded-lg shadow-lg overflow-y-scroll custom-scroll-bar">
     <div class="p-4">
         <div class="flex items-center justify-between">
             <h2 class="text-lg text-zinc-100 font-black mb-3">
@@ -26,19 +26,14 @@
 
         <!-- A card to create a new task -->
         <div class="w-full flex items-center justify-between bg-white text-gray-900 hover:cursor-pointer shadow-md
-         rounded-lg p-3 relative mb-4"
+         rounded-lg p-3 relative mt-8 mb-4"
             @click="createTask()">
             <span>Create a new task</span>
             <PlusIcon class="h-6 w-6" aria-hidden="true" />
         </div>
 
-        <!-- A card to create a new task -->
-        <div class="w-full flex items-center justify-between bg-white text-red-900 hover:cursor-pointer shadow-md
-         rounded-lg p-3 relative border border-red-900 hover:bg-red-50"
-            @click="deletePhaseAction">
-            <span>Delete this phase!</span>
-            <TrashIcon class="h-6 w-6" aria-hidden="true" />
-        </div>
+        <!-- A card to delete phase -->
+        <delete-button :action="deletePhaseAction"/>
 
     </div>
 </div>
@@ -47,9 +42,10 @@
 <script setup>
 // get the props
 import { useKanbanStore } from '../stores/kanban'
-import { PlusIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { PlusIcon } from '@heroicons/vue/20/solid'
 import { deletePhase, setPhaseCompletable } from "../services/phaseService.js";
 import { ref } from 'vue'
+import DeleteButton from "./phase/DeleteButton.vue";
 const kanban = useKanbanStore()
 
 const props = defineProps({
