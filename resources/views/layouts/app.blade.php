@@ -30,7 +30,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="flex-1 flex flex-col" id="app">
+            <main class="flex-1 flex flex-col overflow-y-scroll" id="app">
                 {{ $slot }}
             </main>
         </div>

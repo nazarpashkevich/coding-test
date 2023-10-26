@@ -1,5 +1,5 @@
 <template>
-<div class="w-[300px] bg-sky-950 rounded-lg shadow-lg">
+<div class="w-[300px] bg-sky-950 rounded-lg shadow-lg overflow-y-scroll scrollbar-hide">
     <div class="p-4">
         <div class="flex items-center justify-between">
             <h2 class="text-lg text-zinc-100 font-black mb-3">

@@ -17,4 +17,9 @@ class PhaseService
 
         $phase->save();
     }
+
+    public function delete(Phase $phase): void
+    {
+        $phase->delete();
+    }
 }
